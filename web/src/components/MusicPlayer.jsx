@@ -35,6 +35,7 @@ export default function MusicPlayer({ plan, selectedSeedKey, timerState }) {
   }, [activeTrack?.url, timerState?.running, userArmedAutoplay]);
 
   const phaseLabel = phaseInfo.phaseName ?? "Warmup";
+  const isRunning = Boolean(timerState?.running);
 
   if (!plan) {
     return (
@@ -46,8 +47,19 @@ export default function MusicPlayer({ plan, selectedSeedKey, timerState }) {
   }
 
   return (
-    <section className="card musicCard">
+    <section className={`card musicCard ${isRunning ? "musicCard-live" : "musicCard-idle"}`}>
       <div className="musicGlow" aria-hidden="true" />
+
+      <div className="musicVisual" aria-hidden="true">
+        <div className="musicPlanet">
+          <div className="musicPlanetCore" />
+        </div>
+        <div className="musicBars">
+          {[0, 1, 2, 3, 4, 5].map((n) => (
+            <span key={n} className="musicBar" />
+          ))}
+        </div>
+      </div>
 
       <div className="row">
         <h2 className="cardTitle">Mood DJ</h2>
