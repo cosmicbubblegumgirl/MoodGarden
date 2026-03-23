@@ -1,4 +1,4 @@
-export default function Header() {
+export default function Header({ user, onLogin, onLogout }) {
   return (
     <header className="header">
       <div className="headerStars" aria-hidden="true">
@@ -14,7 +14,17 @@ export default function Header() {
         </p>
       </div>
 
-      <div className="creatorTag">Quantum Cupcake Creation</div>
+      <div className="headerRight">
+        {user ? (
+          <div className="userBadge">
+            <span className="userAvatar">{(user.display_name || user.username)[0].toUpperCase()}</span>
+            <span className="userName">{user.display_name || user.username}</span>
+            <button type="button" className="btnGhost userLogout" onClick={onLogout}>Sign out</button>
+          </div>
+        ) : (
+          <button type="button" className="btnGhost headerLoginBtn" onClick={onLogin}>Sign in</button>
+        )}
+      </div>
     </header>
   );
 }
