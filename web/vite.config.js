@@ -8,7 +8,9 @@ export default defineConfig({
     sourcemap: true,
   },
   server: {
-    port: 5500,
+    host: "0.0.0.0",
+    port: 5000,
+    allowedHosts: true,
     sourcemap: true,
     proxy: {
       "/api": {
