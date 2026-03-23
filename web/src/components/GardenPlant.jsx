@@ -17,9 +17,9 @@ const PLANT_CONFIG = {
     bgGlow: "rgba(245,166,35,0.22)"
   },
   anxiety: {
-    name: "Lavender",
-    soilColor: "#1a1525",
-    bgGlow: "rgba(150,80,220,0.18)"
+    name: "Orchid",
+    soilColor: "#1a1222",
+    bgGlow: "rgba(180,80,240,0.22)"
   },
   burnout: {
     name: "Fern",
@@ -132,23 +132,53 @@ function Sunflower({ bloomOp }) {
   );
 }
 
-function Lavender({ bloomOp }) {
-  const stems = [-24, -12, 0, 12, 24];
-  const heights = [80, 65, 55, 70, 85];
+function Orchid({ bloomOp }) {
   return (
     <>
-      {stems.map((x, i) => (
-        <g key={i}>
-          <rect x={x - 2} y={heights[i]} width="4" height={168 - heights[i]} fill="#5a8040" rx="2" />
-          <ellipse cx={x} cy={heights[i]} rx="8" ry="12" fill="#7b2fbe" opacity={0.85 + bloomOp * 0.1} />
-          <ellipse cx={x} cy={heights[i] - 5} rx="5" ry="7" fill="#9d4edd" opacity={0.75 + bloomOp * 0.1} />
-          <ellipse cx={x} cy={heights[i] - 10} rx="3" ry="5" fill="#c77dff" opacity={0.65 + bloomOp * 0.2} />
-        </g>
-      ))}
-      <ellipse cx="0" cy="40" rx="12" ry="8" fill="#e0aaff" opacity={bloomOp} />
-      {stems.map((x, i) => (
-        <ellipse key={i} cx={x} cy={heights[i] - 14} rx="4" ry="5" fill="#f0c9ff" opacity={bloomOp * 0.9} />
-      ))}
+      {/* Strap leaves at base */}
+      <ellipse cx="-20" cy="148" rx="21" ry="8" fill="#3a6b35" opacity="0.92" transform="rotate(-18 -20 148)" />
+      <ellipse cx="20" cy="148" rx="21" ry="8" fill="#4a7d40" opacity="0.92" transform="rotate(18 20 148)" />
+      <ellipse cx="-10" cy="160" rx="15" ry="6" fill="#355e30" opacity="0.8" transform="rotate(-30 -10 160)" />
+      <ellipse cx="10" cy="160" rx="15" ry="6" fill="#355e30" opacity="0.8" transform="rotate(30 10 160)" />
+
+      {/* Main stem */}
+      <path d="M 0,168 L 0,52" stroke="#4a7040" strokeWidth="4" strokeLinecap="round" fill="none" />
+
+      {/* Lower flower spike (right branch) */}
+      <path d="M 0,112 Q 14,98 22,83" stroke="#5a8050" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+
+      {/* Lower flower — dorsal sepal */}
+      <ellipse cx="22" cy="70" rx="11" ry="6" fill="#c9a0dc" opacity="0.88" transform="rotate(15 22 70)" />
+      {/* Lateral sepals */}
+      <ellipse cx="11" cy="80" rx="11" ry="5.5" fill="#c9a0dc" opacity="0.82" transform="rotate(-42 11 80)" />
+      <ellipse cx="33" cy="80" rx="11" ry="5.5" fill="#c9a0dc" opacity="0.82" transform="rotate(42 33 80)" />
+      {/* Lateral petals (wider, lighter) */}
+      <ellipse cx="12" cy="73" rx="13" ry="7" fill="#dba0e8" opacity="0.92" transform="rotate(-26 12 73)" />
+      <ellipse cx="32" cy="73" rx="13" ry="7" fill="#dba0e8" opacity="0.92" transform="rotate(26 32 73)" />
+      {/* Lip / labellum */}
+      <ellipse cx="22" cy="80" rx="7.5" ry="5" fill="#f2b5f5" opacity="0.96" />
+      <ellipse cx="22" cy="82" rx="3.5" ry="2.5" fill="#8030cc" opacity="0.82" />
+      <ellipse cx="22" cy="81" rx="1.5" ry="2" fill="#ffe0ff" opacity="0.65" />
+
+      {/* Closed bud on stem */}
+      <ellipse cx="4" cy="68" rx="4" ry="7" fill="#9a66cc" opacity={0.55 + bloomOp * 0.4} />
+      <ellipse cx="4" cy="62" rx="3" ry="4.5" fill="#c8a0e8" opacity={0.45 + bloomOp * 0.5} />
+
+      {/* Upper flower spike (left branch) – revealed at bloom */}
+      <path d="M 0,78 Q -18,62 -26,46" stroke="#5a8050" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity={bloomOp} />
+
+      {/* Upper flower — dorsal sepal */}
+      <ellipse cx="-26" cy="33" rx="11" ry="6" fill="#b57fdd" opacity={bloomOp * 0.92} transform="rotate(-15 -26 33)" />
+      {/* Lateral sepals */}
+      <ellipse cx="-37" cy="43" rx="11" ry="5.5" fill="#b57fdd" opacity={bloomOp * 0.86} transform="rotate(42 -37 43)" />
+      <ellipse cx="-15" cy="43" rx="11" ry="5.5" fill="#b57fdd" opacity={bloomOp * 0.86} transform="rotate(-42 -15 43)" />
+      {/* Lateral petals */}
+      <ellipse cx="-37" cy="36" rx="13" ry="7" fill="#cc99ee" opacity={bloomOp * 0.94} transform="rotate(24 -37 36)" />
+      <ellipse cx="-15" cy="36" rx="13" ry="7" fill="#cc99ee" opacity={bloomOp * 0.94} transform="rotate(-24 -15 36)" />
+      {/* Lip */}
+      <ellipse cx="-26" cy="43" rx="7.5" ry="5" fill="#f2b5f5" opacity={bloomOp} />
+      <ellipse cx="-26" cy="45" rx="3.5" ry="2.5" fill="#7b2fbe" opacity={bloomOp * 0.88} />
+      <ellipse cx="-26" cy="44" rx="1.5" ry="2" fill="#ffe0ff" opacity={bloomOp * 0.65} />
     </>
   );
 }
@@ -264,7 +294,7 @@ const PLANT_COMPONENTS = {
   racing_thoughts: Willow,
   overwhelm: Succulent,
   low_focus: Sunflower,
-  anxiety: Lavender,
+  anxiety: Orchid,
   burnout: Fern,
   creative_block: Lotus,
   restless_energy: Cactus
